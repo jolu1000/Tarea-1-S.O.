@@ -18,6 +18,7 @@ Esto genera el ejecutable `shell`. Para iniciar la shell:
 Desde aquí puedes ejecutar cualquier comando de Linux, por ejemplo:
 
 mishell:$ ls -l
+
 mishell:$ echo "Hola mundo"
 
 Para salir de la shell:
