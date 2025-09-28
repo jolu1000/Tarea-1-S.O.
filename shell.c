@@ -27,12 +27,12 @@ void parse_command(char *input, char **args) {
 
 // miprof ejec/ejecsave
 void run_miprof(char **args) {
-    struct timespec start, end;
-    struct rusage usage;
-    int status;
+    struct timespec start, end; //estructuras para guardar tiempo de reloj
+    struct rusage usage; //estructura que wait4 llenará con estadísticas del proceso hijo
+    int status; //entero donde wait4 almacenará el estado de salida del hijo
 
     int flag = 0; //flag para ver si se guarda en archivo o no
-    int fd = -1;
+    int fd = -1; //descriptor de archivo que se usará para crear un archivo (de ser necesario) y escribir en el
     char **cmd;
 
     //Verificar entrada en caso que se ingrese "miprof"
@@ -44,6 +44,11 @@ void run_miprof(char **args) {
             return;
         }
         flag = 1;
+
+        // open() crea un descriptor de archivo y tiene como argumentos:
+        // O_WRONLY (el archivo solo se abre para escritura) 
+        // O_CREAT (si el archivo no existe se crea)
+        // O_APPEND (si el archivo existe se escribe al final de este)
         fd = open(args[2], O_WRONLY | O_CREAT | O_APPEND, 0644);
         if (fd < 0) {
             perror("open");
@@ -285,3 +290,4 @@ int main() {
     }
     return 0;
 }
+
